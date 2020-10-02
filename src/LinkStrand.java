@@ -16,6 +16,10 @@ public class LinkStrand implements IDnaStrand {
     private long mySize;
     private int myAppends;
 
+    private Node myCurrent;
+    private int myLocalIndex;
+    private int myIndex;
+
     public LinkStrand(){
         this("");
     }
@@ -26,12 +30,18 @@ public class LinkStrand implements IDnaStrand {
 
     @Override
     public long size() {
-        return myFirst.info.length();
+        return mySize;
     }
 
     @Override
     public void initialize(String source) {
-        Node a = new Node(source, myFirst);
+        myFirst = new Node(source, null);
+        myLast = myFirst;
+        mySize = source.length();
+        myAppends = 0;
+        myCurrent = myFirst;
+        myLocalIndex = 0;
+        myIndex = 0;
     }
 
     @Override
@@ -41,21 +51,60 @@ public class LinkStrand implements IDnaStrand {
 
     @Override
     public IDnaStrand append(String dna) {
-        return null;
+        Node a = new Node(dna, null);
+        myLast.next = a;
+        myLast = myLast.next;
+        mySize += dna.length();
+        myAppends ++;
+        return this;
     }
 
     @Override
     public IDnaStrand reverse() {
-        return null;
+        Node list2 = myFirst;
+        StringBuilder ofList2 = new StringBuilder("");
+
+        while(list2 != null)
+        {
+            ofList2.append(list2);
+            list2 = list2.next;
+        }
+        LinkStrand result = new LinkStrand(ofList2.reverse().toString());
+
+        return result;
     }
 
     @Override
     public int getAppendCount() {
-        return 0;
+        return myAppends;
     }
 
     @Override
     public char charAt(int index) {
-        return 0;
+        if(index < 0 || index > mySize-1) throw new IndexOutOfBoundsException();
+        while(myIndex < index && index != myIndex)
+        {
+            myIndex++;
+            myLocalIndex ++;
+
+            if(myCurrent.info.length() <= myLocalIndex && myCurrent.next != null)
+            {
+                myLocalIndex = 0;
+                myCurrent = myCurrent.next;
+            }
+        }
+        return myCurrent.info.charAt(myLocalIndex);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder result = new StringBuilder("");
+        Node list1 = myFirst;
+        while(list1 != null)
+        {
+            result.append(list1.info);
+            list1 = list1.next;
+        }
+        return result.toString();
     }
 }
