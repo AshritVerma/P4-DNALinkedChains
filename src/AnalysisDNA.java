@@ -116,10 +116,14 @@ public class AnalysisDNA {
 
         String copy = mySource;
         for(int i = 0; i < 10; i++)
+        {
+            String results = strandSpliceBenchmark(ENZYME, splicee, strandType);
+            System.out.println(results);
             mySource += copy;
-        String results = strandSpliceBenchmark(ENZYME, splicee, strandType);
-        System.out.println(results);
-        
+        }
+
+
+
         System.exit(0);
     }
 }
