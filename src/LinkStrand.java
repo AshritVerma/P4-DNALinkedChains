@@ -59,17 +59,22 @@ public class LinkStrand implements IDnaStrand {
         return this;
     }
 
+
     @Override
     public IDnaStrand reverse() {
         Node list2 = myFirst;
         StringBuilder ofList2 = new StringBuilder("");
+        LinkStrand result = new LinkStrand();
 
         while(list2 != null)
         {
-            ofList2.append(list2);
+            ofList2 = new StringBuilder(list2.info);
+            result.myFirst = new Node(ofList2.reverse().toString(), result.myFirst);
             list2 = list2.next;
         }
-        LinkStrand result = new LinkStrand(ofList2.reverse().toString());
+
+        result.mySize = mySize;
+        result.myAppends = myAppends;
 
         return result;
     }
