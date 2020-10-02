@@ -119,8 +119,11 @@ public class AnalysisDNA {
         System.out.println(results);
 
         for(int i = 0; i < 10; i++)
+        {
             mySource += copy;
-
+            strandSpliceBenchmark(mySource, splicee, strandType);
+        }
+        
         System.exit(0);
     }
 }
