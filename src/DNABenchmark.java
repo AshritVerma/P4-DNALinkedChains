@@ -54,7 +54,18 @@ public class DNABenchmark {
 		}
 		return buf.toString();
 	}
- 
+
+	/**
+	 * Return a string representing the DNA read from the scanner, ignoring any
+	 * characters can't be part of DNA and converting all characters to lower
+	 * case.
+	 *
+	 * @param enzyme is restriction enzyme
+	 * @param splicee is another strand of dna to get new strand of dna
+	 * @param className is which program running e.g. StringStrand, LinkStrand, or StringBuilderStrand
+	 * @return a string representing the DNA read, characters in the returned
+	 *         string are restricted to 'c', 'g', 't', 'a'
+	 */
 	public static String strandSpliceBenchmark(String enzyme, String splicee, String className)
 			throws Exception {
 
@@ -89,6 +100,13 @@ public class DNABenchmark {
 		}
 	}
 
+	/**
+	 * main method to implement IDnaStrand interface, StringStrand, or StringBuilderStrand
+	 * and runs by running by changing the value of the static instance variable
+	 * strandType at top of class file
+	 * @param args of main method execution
+	 * @throws Exception to debug
+	 */
 	public static void main(String[] args)
 			throws Exception {
 
